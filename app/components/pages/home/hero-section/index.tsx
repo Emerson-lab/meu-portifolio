@@ -1,7 +1,9 @@
-import { Button } from "@/app/components/button"
-import { TtechBadge } from "@/app/components/tech-badge"
+'use client'
+
 import Image from "next/image"
+import { Button } from "@/app/components/button"
 import { HiArrowNarrowRight } from "react-icons/hi"
+import { TtechBadge } from "@/app/components/tech-badge"
 import { TbBrandGithub, TbBrandLinkedin, TbBrandYoutube, TbBrandWhatsapp } from "react-icons/tb"
 
 const MOCK_CONTACTS = [
@@ -24,6 +26,13 @@ const MOCK_CONTACTS = [
 ]
 
 export const HeroSection = () => {
+  const handleContact = () => {
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   return (
     <section className="w-full lg:h-[755px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb32 py-32 lg:pb-[110px]">
       <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
@@ -46,7 +55,7 @@ export const HeroSection = () => {
           </div>
 
           <div className="mt-6 lg:mt-10 flex sm:items-center sm:gap-5 flex-col sm:flex-row">
-            <Button className="w-max shadow-button">
+            <Button className="w-max shadow-button" onClick={handleContact}>
               Entre em contato
               <HiArrowNarrowRight />
             </Button>
