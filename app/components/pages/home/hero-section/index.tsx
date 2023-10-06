@@ -1,41 +1,12 @@
 'use client'
 
 import Image from "next/image"
-import {
-  TbBrandGithub,
-  TbBrandLinkedin,
-  TbBrandYoutube,
-  TbBrandWhatsapp
-} from "react-icons/tb"
+import { HeroSectionProps } from "./types"
 import { Button } from "@/app/components/button"
 import { HiArrowNarrowRight } from "react-icons/hi"
-import { HomePageInfo } from "@/app/Types/page-info"
+import { CMSIcon } from "@/app/components/cms-icon"
 import { RichText } from "@/app/components/rich-text"
 import { TtechBadge } from "@/app/components/tech-badge"
-import { CMSIcon } from "@/app/components/cms-icon"
-
-const MOCK_CONTACTS = [
-  {
-    url: 'https://github.com.br',
-    icon: <TbBrandGithub />
-  },
-  {
-    url: 'https://linkedin.com.br',
-    icon: <TbBrandLinkedin />
-  },
-  {
-    url: 'https://youtube.com.br',
-    icon: <TbBrandYoutube />
-  },
-  {
-    url: 'https://whatsapp.com.br',
-    icon: <TbBrandWhatsapp />
-  }
-]
-
-type HeroSectionProps = {
-  homeInfo: HomePageInfo
-}
 
 export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
   const handleContact = () => {
@@ -59,8 +30,8 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
 
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
 
-            {homeInfo.technologies.map((technologies) => (
-              <TtechBadge key={technologies.name} name={technologies.name} />
+            {homeInfo.technologies.map((tech) => (
+              <TtechBadge key={tech.name} name={tech.name} />
             ))}
           </div>
 
