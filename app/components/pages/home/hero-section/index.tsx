@@ -1,10 +1,18 @@
 'use client'
 
 import Image from "next/image"
+import {
+  TbBrandGithub,
+  TbBrandLinkedin,
+  TbBrandYoutube,
+  TbBrandWhatsapp
+} from "react-icons/tb"
 import { Button } from "@/app/components/button"
 import { HiArrowNarrowRight } from "react-icons/hi"
+import { HomePageInfo } from "@/app/Types/page-info"
+import { RichText } from "@/app/components/rich-text"
 import { TtechBadge } from "@/app/components/tech-badge"
-import { TbBrandGithub, TbBrandLinkedin, TbBrandYoutube, TbBrandWhatsapp } from "react-icons/tb"
+import { CMSIcon } from "@/app/components/cms-icon"
 
 const MOCK_CONTACTS = [
   {
@@ -25,7 +33,11 @@ const MOCK_CONTACTS = [
   }
 ]
 
-export const HeroSection = () => {
+type HeroSectionProps = {
+  homeInfo: HomePageInfo
+}
+
+export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
   const handleContact = () => {
     const contactSection = document.querySelector("#contact");
     if (contactSection) {
@@ -41,16 +53,14 @@ export const HeroSection = () => {
 
           <h2 className="text-4xl font-medium mt-2">Emerson Trindade</h2>
 
-          <p className="text-gray-400 my-6 text-sm sm:text-base">
-            Sou um desenvolvedor front-end apaixonado por tecnologia.
-            Com mais de 5 anos de experiência. Meu objetivo é criar interfaces de usuário bonitas
-            e funcionais, além de liderar equipes técnicas em projetos desafiadores.
-            Estou sempre aberto a novas oportunidades e desafios.
-          </p>
+          <div className="text-gray-400 my-6 text-sm sm:text-base">
+            <RichText content={homeInfo.introduction.raw} />
+          </div>
 
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <TtechBadge key={index} name="Next.js" />
+
+            {homeInfo.technologies.map((technologies) => (
+              <TtechBadge key={technologies.name} name={technologies.name} />
             ))}
           </div>
 
@@ -61,14 +71,14 @@ export const HeroSection = () => {
             </Button>
 
             <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
-              {MOCK_CONTACTS.map((contact, index) => (
+              {homeInfo.socials.map((contact) => (
                 <a
-                  href={contact.url}
-                  key={`contact=${index}`}
                   target="_blank"
+                  href={contact.url}
+                  key={`contact=${contact.url}`}
                   className="hover:text-gray-100 transition-colors"
                 >
-                  {contact.icon}
+                  <CMSIcon icon={contact.iconSvg} />
                 </a>
               ))}
             </div>
@@ -78,7 +88,7 @@ export const HeroSection = () => {
         <Image
           width={420}
           height={404}
-          src="/images/foto-perfil-linkedin.jpg"
+          src={homeInfo.profilePicture.url}
           alt="Foto de perfil do Emerson Trindade"
           className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
         />

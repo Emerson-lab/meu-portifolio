@@ -1,10 +1,10 @@
-import { Inter, IBM_Plex_Mono } from 'next/font/google'
-import './globals.css'
 import { ReactNode } from 'react'
+import './globals.css'
 import { Header } from './components/header'
-import { ContactForm } from './components/contact-form'
 import { Footer } from './components/footer'
 import { BckToTop } from './components/back-to-top'
+import { Inter, IBM_Plex_Mono } from 'next/font/google'
+import { ContactForm } from './components/contact-form'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <ContactForm />
         <Footer />
+        <BckToTop />
       </body>
-      <BckToTop />
     </html>
   )
 }
