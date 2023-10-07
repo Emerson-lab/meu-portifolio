@@ -7,7 +7,7 @@ import { Button } from "@/app/components/button"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { CMSIcon } from "@/app/components/cms-icon"
 import { RichText } from "@/app/components/rich-text"
-import { TtechBadge } from "@/app/components/tech-badge"
+import { TechBadge } from "@/app/components/tech-badge"
 
 export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
   const handleContact = () => {
@@ -38,10 +38,12 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
 
             {homeInfo.technologies.map((tech) => (
-              <TtechBadge
+              <TechBadge
                 key={tech.name}
                 name={tech.name}
-                
+                initial={{opacity: 0, scale: 0}}
+                whileInView={{opacity: 1, scale: 1}}
+                exit={{opacity: 0, scale: 0}}
               />
             ))}
           </div>
