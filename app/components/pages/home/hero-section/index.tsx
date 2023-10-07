@@ -36,18 +36,6 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
             <RichText content={homeInfo.introduction.raw} />
           </div>
 
-          <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-
-            {homeInfo.technologies.map((tech, index) => (
-              <TechBadge
-                key={tech.name}
-                name={tech.name}
-                {...techBadgeAnimation}
-                transition={{ duration: .2, delay: index * .1 }}
-              />
-            ))}
-          </div>
-
           <div className="mt-6 lg:mt-10 flex sm:items-center sm:gap-5 flex-col sm:flex-row">
             <Button className="w-max shadow-button" onClick={handleContact}>
               Entre em contato

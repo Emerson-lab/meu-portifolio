@@ -1,25 +1,31 @@
+'use client'
+
+import { motion } from "framer-motion";
 import { FiGlobe } from "react-icons/fi";
+import { Link } from "@/app/components/link";
+import { ProjectDeatailsProps } from "./types";
 import { TbBrandGithub } from "react-icons/tb";
 import { Button } from "@/app/components/button";
-import { TechBadge } from "@/app/components/tech-badge";
-import { SectionTitle } from "@/app/components/section-title";
-import { Link } from "@/app/components/link";
 import { HiArrowNarrowLeft } from "react-icons/hi";
-import { ProjectDeatailsProps } from "./types";
 import { RichText } from "@/app/components/rich-text";
-import { techBadgeAnimation } from "@/app/lib/animations";
+import { TechBadge } from "@/app/components/tech-badge";
+import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations";
+import { SectionTitle } from "@/app/components/section-title";
 
 export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
 
   return (
     <section className="w-full sm:min-h-[750px] flex flex-col items-center justify-end relative pb-10 sm:pb-24 py-24 px-6 overflow-hidden">
-      <div
+      <motion.div
         className="absolute inset-0 z-[-1]"
         style={{
           background:
             `url(/images/hero-bg.png) no-repeat center/cover, 
-          url(${project.pageThumbnail.url}) no-repeat center/cover`
+          url(${project.pageThumbnail.url}) no-repeat `
         }}
+        initial={{ opacity: 0, scale: 1.3 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: .8 }}
       />
 
       <SectionTitle
@@ -28,9 +34,12 @@ export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
         className="text-center items-center sm:[&>h3]:text-4xl"
       />
 
-      <div className="text-gray-400 text-center max-w-[640px] my-4 sm:my-6 text-sm sm:text-base">
+      <motion.div
+        className="text-gray-400 text-center max-w-[640px] my-4 sm:my-6 text-sm sm:text-base"
+        {...fadeUpAnimation}
+      >
         <RichText content={project.description.raw} />
-      </div>
+      </motion.div>
       <div className="w-full max-w-[330px] flex flex-wrap gap-2 items-center justify-center">
         {project.technologies.map((tech, index) => (
           <TechBadge
@@ -41,7 +50,11 @@ export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
           />
         ))}
       </div>
-      <div className="my-6 sm:my-12 flex items-center gap-2 sm:gap-4 flex-col sm:flex-row">
+
+      <motion.div
+        className="my-6 sm:my-12 flex items-center gap-2 sm:gap-4 flex-col sm:flex-row"
+        {...fadeUpAnimation}
+      >
         {project.githubUrl &&
           <a href={project.githubUrl} target="_blank">
             <Button className="min-w-[180px]">
@@ -58,7 +71,7 @@ export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
             </Button>
           </a>
         }
-      </div>
+      </motion.div>
       <Link href="/projects">
         <HiArrowNarrowLeft size={20} />
         Voltar para projetos
