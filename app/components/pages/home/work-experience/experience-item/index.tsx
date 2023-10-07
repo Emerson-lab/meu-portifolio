@@ -3,7 +3,7 @@ import { differenceInMonths, differenceInYears, format } from "date-fns"
 import ptBR from "date-fns/locale/pt-BR"
 import { ExperienceItemProps } from "./types"
 import { RichText } from "@/app/components/rich-text"
-import { TtechBadge } from "@/app/components/tech-badge"
+import { TechBadge } from "@/app/components/tech-badge"
 
 export const ExperienceItem = ({ expirencie }: ExperienceItemProps) => {
 
@@ -70,7 +70,7 @@ export const ExperienceItem = ({ expirencie }: ExperienceItemProps) => {
         <p className="text-gray-400 text-sm mb-3 mt-6 font-semibold">Competências</p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
           {expirencie.technologies.map(tech => (
-            <TtechBadge
+            <TechBadge
               key={`experience-${expirencie.companyName}-tech-${tech.name}`}
               name={tech.name}
             />

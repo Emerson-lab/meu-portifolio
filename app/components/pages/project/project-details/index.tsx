@@ -1,7 +1,7 @@
 import { FiGlobe } from "react-icons/fi";
 import { TbBrandGithub } from "react-icons/tb";
 import { Button } from "@/app/components/button";
-import { TtechBadge } from "@/app/components/tech-badge";
+import { TechBadge } from "@/app/components/tech-badge";
 import { SectionTitle } from "@/app/components/section-title";
 import { Link } from "@/app/components/link";
 import { HiArrowNarrowLeft } from "react-icons/hi";
@@ -32,7 +32,7 @@ export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
       </div>
       <div className="w-full max-w-[330px] flex flex-wrap gap-2 items-center justify-center">
         {project.technologies.map(tech => (
-          <TtechBadge key={tech.name} name={tech.name} />
+          <TechBadge key={tech.name} name={tech.name} />
         ))}
       </div>
       <div className="my-6 sm:my-12 flex items-center gap-2 sm:gap-4 flex-col sm:flex-row">

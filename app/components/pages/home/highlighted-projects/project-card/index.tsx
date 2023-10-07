@@ -2,7 +2,7 @@ import Image from "next/image"
 import { ProjectCardType } from "./types"
 import { Link } from "@/app/components/link"
 import { HiArrowNarrowRight } from "react-icons/hi"
-import { TtechBadge } from "@/app/components/tech-badge"
+import { TechBadge } from "@/app/components/tech-badge"
 
 export const ProjectCard = ({ project }: ProjectCardType) => {
   return (
@@ -34,7 +34,7 @@ export const ProjectCard = ({ project }: ProjectCardType) => {
 
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[350px]">
           {project.technologies.map(tech => (
-            <TtechBadge key={`${project.title}-tech-${tech.name}`} name={tech.name} />
+            <TechBadge key={`${project.title}-tech-${tech.name}`} name={tech.name} />
           ))}
         </div>
 
