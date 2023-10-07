@@ -1,14 +1,45 @@
-import { TtechBadge } from "@/app/components/tech-badge"
 import Image from "next/image"
+import { differenceInMonths, differenceInYears, format } from "date-fns"
+import ptBR from "date-fns/locale/pt-BR"
+import { ExperienceItemProps } from "./types"
+import { RichText } from "@/app/components/rich-text"
+import { TtechBadge } from "@/app/components/tech-badge"
 
-export const ExperienceItem = () => {
+export const ExperienceItem = ({ expirencie }: ExperienceItemProps) => {
+
+  const startDate = new Date(expirencie.startDate);
+
+  const formattedStartDate = format(startDate, 'MMM yyyy', { locale: ptBR });
+  const formattedEndDate = expirencie.endDate ?
+    format(new Date(expirencie.endDate), 'MMM yyyy', { locale: ptBR }) :
+    'o momento'
+
+  const end = expirencie.endDate ?
+    new Date(expirencie.endDate) :
+    new Date(expirencie.endDate);
+
+    console.log(expirencie.endDate)
+
+  const months = differenceInMonths(end, startDate);
+  const years = differenceInYears(end, startDate);
+  const monthsRemaining = months % 12
+
+  const formattedDuration =
+  years > 0
+    ? `${years} ano${years > 1 ? 's' : ''}${
+        monthsRemaining > 0
+          ? ` e ${monthsRemaining} mes${monthsRemaining > 1 ? 'es' : ''}`
+          : ''
+      }`
+    : `${months} mes${months > 1 ? 'es' : ''}`
+
   return (
     <div className="grid grid-cols-[40px,1fr] gap-4 md:gap-10">
       <div className="flex flex-col items-center gap-4">
         <div className="rounded-full border border-gray-500 p-0.5">
           <Image
-            src="https://media.graphassets.com/Q4lS2mPkT4Kw3BHM6Ba5"
-            alt="Logo da empressa Workwolf"
+            src={expirencie.companyLogo.url}
+            alt={`Logo da empressa ${expirencie.companyName}`}
             width={40}
             height={40}
             className="rounded-full"
@@ -21,30 +52,29 @@ export const ExperienceItem = () => {
       <div>
         <div className="flex flex-col gap-2 text-sm sm:text-base">
           <a
-            href="https://www.linkedin.com/company/worwolf"
+            href={expirencie.companyUrl}
             target="_blank"
             className="text-gray-500 hover:text-emerald-500 transition-colors"
           >
-            @ Workwolf
+            @ {expirencie.companyName}
           </a>
-          <h4 className="text-gray-300">Desenvolvedor Front-End</h4>
+          <h4 className="text-gray-300">{expirencie.role}</h4>
           <span className="text-gray-500">
-            out 2022 • O momento • (7 meses)
+            {formattedStartDate} • {formattedEndDate}
           </span>
-          <p className="text-gray-400">
-            Desenvolvimento e manutenção de interfaces utilizando React, Next, Tailwind, 
-            Typescript e Figma. Para o planejamento dos sprints, é utilizado o Jira.
-          </p>
+          <div className="text-gray-400">
+            <RichText content={expirencie.description.raw} />
+          </div>
         </div>
 
         <p className="text-gray-400 text-sm mb-3 mt-6 font-semibold">Competências</p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
-          <TtechBadge name="React"/>
-          <TtechBadge name="React"/>
-          <TtechBadge name="React"/>
-          <TtechBadge name="React"/>
-          <TtechBadge name="React"/>
-          <TtechBadge name="React"/>
+          {expirencie.technologies.map(tech => (
+            <TtechBadge
+              key={`experience-${expirencie.companyName}-tech-${tech.name}`}
+              name={tech.name}
+            />
+          ))}
         </div>
       </div>
     </div>
