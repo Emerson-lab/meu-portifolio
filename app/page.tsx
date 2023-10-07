@@ -4,56 +4,72 @@ import { HighlightedProjects } from "./components/pages/home/highlighted-project
 import { WorkExperience } from "./components/pages/home/work-experience";
 import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 import { HomepageData } from "./Types/page-info";
+import { REVALIDATE_DATA } from "./variables";
 
 const getPageData = async (): Promise<HomepageData> => {
   const query = `
-    query PageInfoQuery {
-      page(where: {slug: "home"}) {
-        introduction {
-          raw
+  query PageInfoQuery {
+    page(where: {slug: "home"}) {
+      introduction {
+        raw
+      }
+      technologies {
+        name
+      }
+      profilePicture {
+        url
+      }
+      socials {
+        url
+        iconSvg
+      }
+      knownTechs {
+        iconSvg
+        name
+        startDate
+      }
+      highlightProjects {
+        slug
+        thumbnail {
+          url
         }
+        title
+        shortDescription
         technologies {
           name
         }
-        profilePicture {
-          url
-        }
-        socials {
-          url
-          iconSvg
-        }
-        knownTechs {
-          iconSvg
-          name
-          startDate
-        }
-        highlightProjects {
-          slug
-          thumbnail {
-            url
-          }
-          title
-          shortDescription
-          technologies {
-            name
-          }
-        }
       }
     }
-  `
-  const revalidateData = 60 * 60 * 24// 24 hours;
-  return fetchHygraphQuery(query, revalidateData);
+    workExperiences {
+      companyLogo {
+        url
+      }
+      role
+      companyName
+      companyUrl
+      startDate
+      endDate
+      description {
+        raw
+      }
+      technologies {
+        name
+      }
+    }
+  }
+`
+  return fetchHygraphQuery(query, REVALIDATE_DATA);
 }
 
 export default async function Home() {
-  const { page: pageData } = await getPageData();
+  const { page: pageData, workExperiences } = await getPageData();
 
   return (
     <>
       <HeroSection homeInfo={pageData} />
       <KnownTechs techs={pageData.knownTechs} />
-      <HighlightedProjects projects={pageData.highlightProjects}/>
-      <WorkExperience />
+      <HighlightedProjects projects={pageData.highlightProjects} />
+      <WorkExperience expirencies={workExperiences} />
     </>
   )
 }

@@ -1,7 +1,8 @@
-import { SectionTitle } from "@/app/components/section-title"
+import { WorkExperienceProps } from "./types"
 import { ExperienceItem } from "./experience-item"
+import { SectionTitle } from "@/app/components/section-title"
 
-export const WorkExperience = () => {
+export const WorkExperience = ({ expirencies }: WorkExperienceProps) => {
   return (
     <section className="container py-16 flex gap-10 mb:gap-4 lg:gap-16 flex-col md:flex-row">
       <div className="max-w-[420px]">
@@ -13,8 +14,12 @@ export const WorkExperience = () => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <ExperienceItem />
-        <ExperienceItem />
+        {expirencies?.map(expirencie => (
+          <ExperienceItem
+            key={expirencie.companyName}
+            expirencie={expirencie}
+          />
+        ))}
       </div>
     </section>
   )
