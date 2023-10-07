@@ -28,6 +28,12 @@ export type ProjectsPageDataType = {
   projects: ProjectType[]
 }
 
+export type ProjectspageStaticData = {
+  projects:{
+    slug: string;
+  }[]
+}
+
 export type HomepageData = {
   page: HomePageInfo;
   workExperiences: WorkExperienceType[]

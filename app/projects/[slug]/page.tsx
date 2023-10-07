@@ -1,9 +1,10 @@
+import { ProjectPageProps } from "./types";
+import { REVALIDATE_DATA } from "@/app/variables";
+import { fetchHygraphQuery } from "@/app/utils/fetch-hygraph-query";
 import ProjectDeatails from "@/app/components/pages/project/project-details";
 import { ProjectSections } from "@/app/components/pages/project/project-sections";
-import { fetchHygraphQuery } from "@/app/utils/fetch-hygraph-query";
-import { REVALIDATE_DATA } from "@/app/variables";
-import { ProjectPageProps } from "./types";
-import { ProjectPageDataType } from "@/app/Types/page-info";
+import { ProjectPageDataType, ProjectspageStaticData } from "@/app/Types/page-info";
+import { Metadata } from "next";
 
 const getProjectsDetails = async (slug: string): Promise<ProjectPageDataType> => {
   const query = `
@@ -43,8 +44,42 @@ export default async function Project({ params: { slug } }: ProjectPageProps) {
 
   return (
     <>
-      <ProjectDeatails project={project}/>
-      <ProjectSections sections={project.sections}/>
+      <ProjectDeatails project={project} />
+      <ProjectSections sections={project.sections} />
     </>
   )
+}
+
+export async function generateStaticParams() {
+  const query = `
+    query ProjectsSlugsQuery() {
+      projects(first: 100) {
+        slug
+      }
+    }
+  `
+
+  const { projects } = await fetchHygraphQuery<ProjectspageStaticData>(query);
+
+  return projects
+}
+
+export async function generateMetadata({
+  params: { slug }
+}: ProjectPageProps): Promise<Metadata> {
+  const data = await getProjectsDetails(slug);
+  const project = data.project;
+  return {
+    title: project.title,
+    description: project.description.text,
+    openGraph: {
+      images: [
+        {
+          url: project.thumbnail.url,
+          width: 1200,
+          height: 630
+        }
+      ]
+    }
+  }
 }
