@@ -1,30 +1,25 @@
 'use client'
 
-import { z } from 'zod'
-import axios from "axios";
+import axios from "axios"
 import { Button } from "../button"
+import toast from 'react-hot-toast'
+import { motion } from 'framer-motion'
 import { useForm } from "react-hook-form"
 import { SectionTitle } from "../section-title"
 import { zodResolver } from '@hookform/resolvers/zod'
+import { fadeUpAnimation } from "@/app/lib/animations"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi"
-import toast from 'react-hot-toast';
-
-const contactformSchema = z.object({
-  name: z.string().min(3).max(50),
-  email: z.string().email(),
-  message: z.string().min(1).max(500)
-})
-
-type ContactFormData = z.infer<typeof contactformSchema>
+import { ContactFormData, contactFormSchema } from './contactFormSchema'
 
 export const ContactForm = () => {
+
   const {
     handleSubmit,
     register,
     reset,
     formState: { isSubmitting }
   } = useForm<ContactFormData>({
-    resolver: zodResolver(contactformSchema)
+    resolver: zodResolver(contactFormSchema)
   });
 
   const onSubmit = async (data: ContactFormData) => {
@@ -46,9 +41,10 @@ export const ContactForm = () => {
           className="items-center text-center"
         />
 
-        <form
+        <motion.form
           className="mt-12 w-full flex flex-col gap-4"
           onSubmit={handleSubmit(onSubmit)}
+          {...fadeUpAnimation}
         >
           <input
             placeholder="Nome"
@@ -74,7 +70,7 @@ export const ContactForm = () => {
             Enviar mensagem
             <HiOutlineArrowNarrowRight size={18} />
           </Button>
-        </form>
+        </motion.form>
       </div>
 
     </section>

@@ -18,7 +18,7 @@ export const KnownTech = ({ tech, index }: KnownTechProps) => {
     <motion.div
       className="p-6 rounded-lg bg-gray-600/20 text-gray-500 flex gap-2 flex-col hover:text-emerald-500 hover:bg-gray-600/30 transition-all"
       initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
+      whileInView={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 0.15, delay: index * 0.1 }}
     >
