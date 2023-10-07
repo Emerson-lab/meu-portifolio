@@ -1,13 +1,33 @@
+'use client'
 import Image from "next/image"
+import { motion } from 'framer-motion';
 import { ProjectCardType } from "./types"
 import { Link } from "@/app/components/link"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { TechBadge } from "@/app/components/tech-badge"
 
 export const ProjectCard = ({ project }: ProjectCardType) => {
+  const animProps = {
+    initial: { opacity: 0, y: 50 },
+    whileInView: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 50 }
+  }
+
   return (
-    <div className="flex gap-6 lg:gap-12 flex-col lg:flex-row">
-      <div className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full">
+    <motion.div
+      className="flex gap-6 lg:gap-12 flex-col lg:flex-row"
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 100 }}
+      transition={{ duration: .5 }}
+    >
+      <motion.div
+        className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full"
+        initial={{ opacity: 0, y: 100, scale: .5 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 100, scale: .5 }}
+        transition={{ duration: .3, delay: .3 }}
+      >
         <Image
           width={420}
           height={304}
@@ -15,10 +35,14 @@ export const ProjectCard = ({ project }: ProjectCardType) => {
           alt={`Thumbnail do Site Portas Abertas ${project.title}`}
           className="w-full h-full object-cover rounded-lg"
         />
-      </div>
+      </motion.div>
 
       <div className="flex-1 lg:py-[18px]">
-        <h3 className="flex items-center gap-3 font-medium text-lg text-gray-50">
+        <motion.h3
+          className="flex items-center gap-3 font-medium text-lg text-gray-50"
+          {...animProps}
+          transition={{ duration: .7 }}
+        >
           <Image
             width={20}
             height={20}
@@ -26,15 +50,25 @@ export const ProjectCard = ({ project }: ProjectCardType) => {
             alt=""
           />
           {project.title}
-        </h3>
+        </motion.h3>
 
-        <p className="text-gray-400 my-6">
+        <motion.p className="text-gray-400 my-6"
+          {...animProps}
+          transition={{ duration: .2, delay: .3 }}
+        >
           {project.shortDescription}
-        </p>
+        </motion.p>
 
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[350px]">
-          {project.technologies.map(tech => (
-            <TechBadge key={`${project.title}-tech-${tech.name}`} name={tech.name} />
+          {project.technologies.map((tech, index) => (
+            <TechBadge
+              key={`${project.title}-tech-${tech.name}`}
+              name={tech.name}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              transition={{ duration: .2, delay: .5 + index * .1 }}
+            />
           ))}
         </div>
 
@@ -43,6 +77,6 @@ export const ProjectCard = ({ project }: ProjectCardType) => {
           <HiArrowNarrowRight />
         </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }
