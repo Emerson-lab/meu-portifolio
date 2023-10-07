@@ -1,10 +1,10 @@
-import { HeroSection } from "./components/pages/home/hero-section";
-import { KnownTechs } from "./components/pages/home/known-techs";
-import { HighlightedProjects } from "./components/pages/home/highlighted-projects";
-import { WorkExperience } from "./components/pages/home/work-experience";
-import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
-import { HomepageData } from "./Types/page-info";
 import { REVALIDATE_DATA } from "./variables";
+import { HomepageData } from "./Types/page-info";
+import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
+import { KnownTechs } from "./components/pages/home/known-techs";
+import { HeroSection } from "./components/pages/home/hero-section";
+import { WorkExperience } from "./components/pages/home/work-experience";
+import { HighlightedProjects } from "./components/pages/home/highlighted-projects";
 
 const getPageData = async (): Promise<HomepageData> => {
   const query = `
