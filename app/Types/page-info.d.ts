@@ -20,6 +20,10 @@ export type HomePageInfo = {
   highlightProjects: ProjectType[];
 }
 
+export type ProjectsPageDataType = {
+  projects: ProjectType[]
+}
+
 export type HomepageData = {
   page: HomePageInfo;
   workExperiences: WorkExperienceType[]
