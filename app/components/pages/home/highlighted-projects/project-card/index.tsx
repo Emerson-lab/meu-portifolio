@@ -40,10 +40,11 @@ export const ProjectCard = ({ project }: ProjectCardType) => {
           transition={{ duration: .7 }}
         >
           <Image
-            width={20}
-            height={20}
+            width={100}
+            height={100}
             src="/images/icons/project-title-icon.svg"
-            alt=""
+            alt={`imagem-do-projeto-${project.title}`}
+            style={{ marginRight: "-70px" }}
           />
           {project.title}
         </motion.h3>
