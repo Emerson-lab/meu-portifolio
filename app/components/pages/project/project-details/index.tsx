@@ -7,6 +7,7 @@ import { Link } from "@/app/components/link";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { ProjectDeatailsProps } from "./types";
 import { RichText } from "@/app/components/rich-text";
+import { techBadgeAnimation } from "@/app/lib/animations";
 
 export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
 
@@ -31,8 +32,13 @@ export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
         <RichText content={project.description.raw} />
       </div>
       <div className="w-full max-w-[330px] flex flex-wrap gap-2 items-center justify-center">
-        {project.technologies.map(tech => (
-          <TechBadge key={tech.name} name={tech.name} />
+        {project.technologies.map((tech, index) => (
+          <TechBadge
+            key={tech.name}
+            name={tech.name}
+            {...techBadgeAnimation}
+            transition={{ duration: .2, delay: index * .1 }}
+          />
         ))}
       </div>
       <div className="my-6 sm:my-12 flex items-center gap-2 sm:gap-4 flex-col sm:flex-row">
