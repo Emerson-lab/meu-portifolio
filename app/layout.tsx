@@ -6,6 +6,18 @@ import { BckToTop } from './components/back-to-top'
 import { Inter, IBM_Plex_Mono } from 'next/font/google'
 import { ContactForm } from './components/contact-form'
 
+export const metadata = {
+  title: {
+    default:'Home',
+    template: '%s | Trinity Dev'
+  },
+  icons:[
+    {
+      url: '/favicon.svg'
+    }
+  ]
+}
+
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
