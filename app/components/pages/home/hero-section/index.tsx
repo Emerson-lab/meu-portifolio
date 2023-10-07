@@ -7,10 +7,9 @@ import { Button } from "@/app/components/button"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { CMSIcon } from "@/app/components/cms-icon"
 import { RichText } from "@/app/components/rich-text"
-import { TechBadge } from "@/app/components/tech-badge"
-import { techBadgeAnimation } from "@/app/lib/animations"
 
 export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
+
   const handleContact = () => {
     const contactSection = document.querySelector("#contact");
     if (contactSection) {

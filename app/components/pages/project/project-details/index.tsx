@@ -9,8 +9,8 @@ import { Button } from "@/app/components/button";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { RichText } from "@/app/components/rich-text";
 import { TechBadge } from "@/app/components/tech-badge";
-import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations";
 import { SectionTitle } from "@/app/components/section-title";
+import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations";
 
 export default function ProjectDeatails({ project }: ProjectDeatailsProps) {
 

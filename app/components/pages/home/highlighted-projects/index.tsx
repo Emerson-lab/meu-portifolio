@@ -1,9 +1,9 @@
 import { Link } from "@/app/components/link"
 import { ProjectCard } from "./project-card"
+import { HighlightedProjectsType } from "./types"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { SectionTitle } from "@/app/components/section-title"
 import { HorizontalDivider } from "@/app/components/divider/horizontal"
-import { HighlightedProjectsType } from "./types"
 
 export const HighlightedProjects = ({ projects }: HighlightedProjectsType) => {
   return (
