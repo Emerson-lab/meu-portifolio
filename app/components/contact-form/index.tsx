@@ -25,10 +25,14 @@ export const ContactForm = () => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       await axios.post('/api/contact', data);
-      toast.success('Mensagem enviada com sucesso!');
+      toast.success('Mensagem enviada com sucesso!', {
+        duration: 3000,
+      });
       reset();
     } catch {
-      toast.error('Ocorreu um erro ao enviar a mensagem. Tente novamente.');
+      toast.error('Ocorreu um erro ao enviar a mensagem. Tente novamente.', {
+        duration: 5000
+      });
     }
   }
 
