@@ -5,6 +5,7 @@ import { ProjectCardType } from "./types"
 import { Link } from "@/app/components/link"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { TechBadge } from "@/app/components/tech-badge"
+import { techBadgeAnimation } from "@/app/lib/animations";
 
 export const ProjectCard = ({ project }: ProjectCardType) => {
   const animProps = {
@@ -64,9 +65,7 @@ export const ProjectCard = ({ project }: ProjectCardType) => {
             <TechBadge
               key={`${project.title}-tech-${tech.name}`}
               name={tech.name}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
+              {...techBadgeAnimation}
               transition={{ duration: .2, delay: .5 + index * .1 }}
             />
           ))}
