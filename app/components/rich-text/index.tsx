@@ -5,9 +5,9 @@ type RichTextProps = ComponentProps<typeof CMSRitchText>
 
 export const RichText = ({ ...props }: RichTextProps) => {
   return (
-    <CMSRitchText
+    <CMSRitchText 
       {...props}
-      renderers={{
+      renderers={{ 
         bold: ({ children }) => (
           <b className='text-gray-50 font-medium'>{children}</b>
         ),
