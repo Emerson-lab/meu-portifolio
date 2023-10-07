@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image"
+import { motion } from 'framer-motion'
 import { HeroSectionProps } from "./types"
 import { Button } from "@/app/components/button"
 import { HiArrowNarrowRight } from "react-icons/hi"
@@ -19,7 +20,13 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
   return (
     <section className="w-full lg:h-[755px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb32 py-32 lg:pb-[110px]">
       <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
-        <div className="w-full lg:max-w-[530px]">
+        <motion.div
+          className="w-full lg:max-w-[530px]"
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{ duration: .5 }}
+        >
           <p className="font-mono text-emerald-400">Olá, meu nome é</p>
 
           <h2 className="text-4xl font-medium mt-2">Emerson Trindade</h2>
@@ -31,7 +38,11 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
 
             {homeInfo.technologies.map((tech) => (
-              <TtechBadge key={tech.name} name={tech.name} />
+              <TtechBadge
+                key={tech.name}
+                name={tech.name}
+                
+              />
             ))}
           </div>
 
@@ -54,7 +65,7 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <Image
           width={420}
