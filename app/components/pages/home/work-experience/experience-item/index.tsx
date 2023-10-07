@@ -6,7 +6,7 @@ import { ExperienceItemProps } from "./types"
 import { RichText } from "@/app/components/rich-text"
 import { TechBadge } from "@/app/components/tech-badge"
 import { differenceInMonths, differenceInYears, format } from "date-fns"
-import { techBadgeAnimation } from "@/app/lib/animations"
+import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations"
 
 export const ExperienceItem = ({ expirencie }: ExperienceItemProps) => {
 
@@ -36,9 +36,7 @@ export const ExperienceItem = ({ expirencie }: ExperienceItemProps) => {
   return (
     <motion.div
       className="grid grid-cols-[40px,1fr] gap-4 md:gap-10"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
+      {...fadeUpAnimation}
       transition={{ duration: 0.5 }}
     >
       <div className="flex flex-col items-center gap-4">
