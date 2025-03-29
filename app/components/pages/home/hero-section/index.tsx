@@ -1,12 +1,12 @@
 'use client'
 
-import Image from "next/image"
-import { motion } from 'framer-motion'
-import { HeroSectionProps } from "./types"
 import { Button } from "@/app/components/button"
-import { HiArrowNarrowRight } from "react-icons/hi"
 import { CMSIcon } from "@/app/components/cms-icon"
 import { RichText } from "@/app/components/rich-text"
+import { motion } from 'framer-motion'
+import Image from "next/image"
+import { HiArrowNarrowRight } from "react-icons/hi"
+import { HeroSectionProps } from "./types"
 
 export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
 
