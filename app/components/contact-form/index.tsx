@@ -1,6 +1,7 @@
 'use client'
 
 import axios from "axios"
+import Script from "next/script"
 import { Button } from "../button"
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
@@ -10,6 +11,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { fadeUpAnimation } from "@/app/lib/animations"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi"
 import { ContactFormData, contactFormSchema } from './contactFormSchema'
+
+declare global {
+  interface Window {
+    turnstile?: {
+      reset: () => void
+    }
+  }
+}
+
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
 export const ContactForm = () => {
 
@@ -23,12 +34,22 @@ export const ContactForm = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    const captchaToken = document.querySelector<HTMLInputElement>(
+      'input[name="cf-turnstile-response"]'
+    )?.value
+
+    if (!captchaToken) {
+      toast.error('Confirme que você não é um robô.')
+      return
+    }
+
     try {
-      await axios.post('/api/contact', data);
+      await axios.post('/api/contact', { ...data, captchaToken });
       toast.success('Mensagem enviada com sucesso!', {
         duration: 3000,
       });
       reset();
+      window.turnstile?.reset();
     } catch {
       toast.error('Ocorreu um erro ao enviar a mensagem. Tente novamente.', {
         duration: 5000
@@ -38,6 +59,10 @@ export const ContactForm = () => {
 
   return (
     <section id="contact" className="py-16 px-6 md:py-32 flex items-center justify-center bg-gray-950">
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="afterInteractive"
+      />
       <div className="2-full max-w-[420px] mx-auto">
         <SectionTitle
           subtitle="contato"
@@ -67,9 +92,21 @@ export const ContactForm = () => {
             maxLength={500}
             {...register('message')}
           />
+          {turnstileSiteKey ? (
+            <div
+              className="cf-turnstile mx-auto"
+              data-sitekey={turnstileSiteKey}
+              data-theme="dark"
+              data-language="pt-br"
+            />
+          ) : (
+            <p className="text-center text-sm text-red-400">
+              Formulário temporariamente indisponível.
+            </p>
+          )}
           <Button
             className="w-max mx-auto mt-6 shadow-button"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !turnstileSiteKey}
           >
             Enviar mensagem
             <HiOutlineArrowNarrowRight size={18} />
